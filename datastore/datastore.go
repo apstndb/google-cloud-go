@@ -630,12 +630,13 @@ func deleteMutations(keys []*Key) ([]*pb.Mutation, error) {
 	return mutations, nil
 }
 
-// Mutate applies one or more mutations atomically.
+// Mutate applies one or more mutations.
 // It returns the keys of the argument Mutations, in the same order.
 //
 // If any of the mutations are invalid, Mutate returns a MultiError with the errors.
 // Mutate returns a MultiError in this case even if there is only one Mutation.
 // See ExampleMultiError to check it.
+// If you want to apply mutations atomically, see Transaction.Mutate.
 func (c *Client) Mutate(ctx context.Context, muts ...*Mutation) (ret []*Key, err error) {
 	ctx = trace.StartSpan(ctx, "cloud.google.com/go/datastore.Mutate")
 	defer func() { trace.EndSpan(ctx, err) }()
