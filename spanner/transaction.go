@@ -880,7 +880,7 @@ func (t *ReadWriteTransaction) BatchUpdate(ctx context.Context, stmts []Statemen
 		}
 		counts = append(counts, count)
 	}
-	if resp.Status.Code != 0 {
+	if resp.Status.GetCode() != 0 {
 		return counts, spannerErrorf(codes.Code(uint32(resp.Status.Code)), resp.Status.Message)
 	}
 	return counts, nil
